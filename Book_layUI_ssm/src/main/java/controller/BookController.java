@@ -83,4 +83,12 @@ public class BookController {
 	file.transferTo(new File(path,nname));
 	return  "/upload/"+nname;
 	}
+	
+	@RequestMapping("杨超")
+	public @ResponseBody String update(Book b) {
+		bService.update(b);
+		return "{\"status\":1}";
+	}
+	
+	
 }
