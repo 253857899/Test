@@ -84,9 +84,9 @@ public class BookController {
 	return  "/upload/"+nname;
 	}
 	
-	@RequestMapping("杨超")
-	public @ResponseBody String update(Book b) {
-		bService.update(b);
+	@RequestMapping("sadas")
+	public @ResponseBody String sase(Book b) {
+		bService.sase(b);
 		return "{\"status\":1}";
 	}
 	
