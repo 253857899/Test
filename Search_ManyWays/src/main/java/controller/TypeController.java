@@ -1,14 +1,17 @@
 package controller;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import entity.Type;
 import service.Type_Service;
+
 @Controller
 @RequestMapping("Type")
 public class TypeController {
@@ -19,13 +22,18 @@ public class TypeController {
 	
 	
 	@RequestMapping("index")
-	public String   index(@RequestParam(defaultValue="-1",required=false)int  txt,Integer page,Integer limit,ModelMap m) {
+	public String   index(Integer opt,String txt,Integer status,Integer page,Integer limit,ModelMap m) {
 		String txt1="";
-		if(txt>-1) 
-		txt1=" where type.status ="+txt;
+		if(opt!=null&&opt==1)
+			txt1=" where type.status ="+status;
+		else
+		if(txt!=null&&txt.length()>0) 
+			txt1=" where type.name like '%"+txt+"%'";
 		m.put("list",service.select(txt1,page,limit)) ;
 		m.put("statuslist", Type.statuslist);
-		m.put("status", txt);
+		m.put("opt", opt);
+		m.put("txt", txt);
+		m.put("status", status);
 		return "Type/index";
 	}
 	
@@ -35,6 +43,12 @@ public class TypeController {
 		service.insert(b);
 		return index(0, null, null, m);
 	}
+	private String index(int i, Object page, Object limit, ModelMap m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	@RequestMapping("update")
 	public   String  update(Type b,ModelMap m) {
 		service.update(b);
